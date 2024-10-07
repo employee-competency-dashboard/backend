@@ -3,7 +3,7 @@ from django.db import models
 
 
 class Grade(models.Model):
-    'Модель грейда сотрудника'
+    """Модель грейда сотрудника"""
 
     grade = models.TextField(
         choices=settings.GRADE,
