@@ -1,3 +1,11 @@
+from django.conf import settings
 from django.db import models
 
-# Create your models here.
+
+class Grade(models.Model):
+    'Модель грейда сотрудника'
+
+    grade = models.TextField(
+        choices=settings.GRADE,
+        verbose_name='Грэйд',
+    )
