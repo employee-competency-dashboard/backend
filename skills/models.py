@@ -3,9 +3,9 @@ from django.db import models
 
 
 class Grade(models.Model):
-    'Модель грейда сотрудника'
+    """Модель грейда сотрудника"""
 
     grade = models.TextField(
         choices=settings.GRADE,
-        verbose_name='Грэйд',
+        verbose_name='Грейд',
     )
