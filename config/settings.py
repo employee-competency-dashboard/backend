@@ -31,8 +31,8 @@ ALLOWED_HOSTS = []
 # Application definition
 
 INSTALLED_APPS = [
-    'skills.apps.SkillsConfig',
-    'users.apps.UsersConfig',
+    'api.apps.ApiConfig',
+    'users_skills.apps.UsersSkillsConfig',
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',
@@ -132,7 +132,7 @@ GRADE = (
     (3, 'junior')
 )
 
-RIGHTS = (
+RIGHT = (
     (0, 'view'),
     (1, 'edit')
 )
