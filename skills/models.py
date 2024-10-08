@@ -7,5 +7,5 @@ class Grade(models.Model):
 
     grade = models.TextField(
         choices=settings.GRADE,
-        verbose_name='Грэйд',
+        verbose_name='Грейд',
     )
