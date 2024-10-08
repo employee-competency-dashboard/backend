@@ -45,8 +45,7 @@ class Team(models.Model):
                                 max_length=MAX_LENGTH_URL_JIRA)
     team_lead = models.ForeignKey(Employee,
                                   verbose_name='id тимлида',
-                                  related_name='teams',
-                                  on_delete=models.CASCADE) 
+                                  related_name='teams') 
     product_owner = models.ForeignKey(Employee,
                                       verbose_name='id продукт оунера',
                                       related_name='teams',
