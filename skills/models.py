@@ -6,7 +6,7 @@ from users.models import Team, Team_s_employees
 
 
 class Grade(models.Model):
-    """Модель грейда сотрудника."""
+    """Модель грейда сотрудника"""
 
     name_grade = models.TextField(
         choices=settings.GRADE,
