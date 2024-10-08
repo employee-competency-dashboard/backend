@@ -24,9 +24,9 @@ class Skill(models.Model):
 
 
 class Grade(models.Model):
-    'Модель грейда сотрудника'
+    """Модель грейда сотрудника"""
 
     grade = models.CharField(
         choices=settings.GRADE,
-        verbose_name='Грэйд',
+        verbose_name='Грейд',
     )
