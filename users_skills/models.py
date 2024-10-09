@@ -1,14 +1,31 @@
 from django.conf import settings
 from django.db import models
 
-from users.constants import (MAX_LENGTH_ABOUT_TEAM, MAX_LENGTH_FIRSTNAME,
-                             MAX_LENGTH_KEY_EMPLOYEE,
-                             MAX_LENGTH_LASTNAME,
-                             MAX_LENGTH_RIGHTS,
-                             MAX_LENGTH_ROLE,
-                             MAX_LENGTH_URL_CONFLUENCE,
-                             MAX_LENGTH_URL_JIRA)
-from skills.models import Grade
+from users_skills.constants import (MAX_LENGTH_ABOUT_TEAM,
+                                    MAX_LENGTH_FIRSTNAME,
+                                    MAX_LENGTH_KEY_EMPLOYEE,
+                                    MAX_LENGTH_KEY_SKILL,
+                                    MAX_LENGTH_LASTNAME,
+                                    MAX_LENGTH_REQUIRED_LEVEL,
+                                    MAX_LENGTH_RIGHTS,
+                                    MAX_LENGTH_ROLE,
+                                    MAX_LENGTH_URL_CONFLUENCE,
+                                    MAX_LENGTH_URL_JIRA)
+
+
+class Grade(models.Model):
+    """Модель грейда сотрудника"""
+
+    name_grade = models.TextField(
+        choices=settings.GRADE,
+        verbose_name='Грейд',
+    )
+
+
+class Skill(models.Model):
+    """Модель Skill (Данные о навыках)"""
+
+    pass
 
 
 class Employee(models.Model):
@@ -46,7 +63,8 @@ class Team(models.Model):
                                 max_length=MAX_LENGTH_URL_JIRA)
     team_lead = models.ForeignKey(Employee,
                                   verbose_name='id тимлида',
-                                  related_name='teams')
+                                  related_name='teams',
+                                  on_delete=models.SET_NULL)
     product_owner = models.ForeignKey(Employee,
                                       verbose_name='id продукт оунера',
                                       related_name='teams',
@@ -66,7 +84,7 @@ class User_s_teams(models.Model):
                                 on_delete=models.CASCADE)
     rights = models.CharField(
         verbose_name='Права сотрудника для работы с дашбордом команды',
-        choices=settings.RIGHTS,
+        choices=settings.RIGHT,
         max_length=MAX_LENGTH_RIGHTS)
 
 
@@ -81,3 +99,26 @@ class Team_s_employees(models.Model):
                                 verbose_name='Идентификатор команды',
                                 related_name='team_s_employees',
                                 on_delete=models.CASCADE)
+
+
+class Team_s_skills(models.Model):
+    """Модель Team's skills (Данные о навыках команды)."""
+
+    id_team = models.ForeignKey(Team,
+                                verbose_name='Идентификатор команды',
+                                related_name='team_s_skills',
+                                on_delete=models.CASCADE)
+    id_skill = models.ForeignKey(Skill,
+                                 verbose_name='Идентификатор навыка',
+                                 related_name='team_s_skills',
+                                 on_delete=models.CASCADE)
+    key_skill = models.BooleanField(
+        verbose_name='Флаг, является ли навык ключевым',
+        max_length=MAX_LENGTH_KEY_SKILL)
+    required_level = models.CharField(
+        verbose_name='Необходимый уровень владения навыком',
+        max_length=MAX_LENGTH_REQUIRED_LEVEL)
+    required_count_employees = models.PositiveIntegerField(
+        verbose_name=('Количество сотрудников в команде,'
+                      'которые должны обладать навыком'),
+        max_length=64)
