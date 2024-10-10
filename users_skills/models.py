@@ -1,7 +1,10 @@
 from django.conf import settings
 from django.db import models
 
-from users_skills.constants import (MAX_LENGTH_ABOUT_TEAM,
+from users_skills.constants import (DOMEN,
+                                    GRADE,
+                                    EXPERTISE,
+                                    MAX_LENGTH_ABOUT_TEAM,
                                     MAX_LENGTH_FIRSTNAME,
                                     MAX_LENGTH_KEY_EMPLOYEE,
                                     MAX_LENGTH_KEY_SKILL,
@@ -10,22 +13,46 @@ from users_skills.constants import (MAX_LENGTH_ABOUT_TEAM,
                                     MAX_LENGTH_RIGHTS,
                                     MAX_LENGTH_ROLE,
                                     MAX_LENGTH_URL_CONFLUENCE,
-                                    MAX_LENGTH_URL_JIRA)
+                                    MAX_LENGTH_URL_JIRA,
+                                    RIGHT,
+                                    SKILL)
 
 
 class Grade(models.Model):
     """Модель грейда сотрудника"""
 
-    name_grade = models.TextField(
-        choices=settings.GRADE,
+    name_grade = models.CharField(
+        choices=GRADE,
         verbose_name='Грейд',
     )
+
+
+class Expertise(models.Model):
+    """Модель компетенции сотрудника
+
+    В отдельную модель не выносим ?    
+    """
+
+    pass
 
 
 class Skill(models.Model):
     """Модель Skill (Данные о навыках)"""
 
-    pass
+    skill_name = models.CharField(
+        choices=SKILL,
+        verbose_name='Навык',
+    )
+    skill_type = models.CharField(
+        choices=DOMEN,
+        verbose_name='Хард или Софт',
+
+    )
+    name_expertise=models.CharField(
+        choices=EXPERTISE,
+        verbose_name='Компетенция'
+    )
+    
 
 
 class Employee(models.Model):
