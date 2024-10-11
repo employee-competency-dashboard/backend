@@ -42,7 +42,8 @@ class Expertise(models.Model):
 class Skill(models.Model):
     """Модель Skill (Данные о навыках)."""
 
-    REQUIRED_FIELDS = ['name_expertise']
+    REQUIRED_FIELDS = ['skill_name', 'skill_type', 'id_expertise',
+                       'grade', 'required_level_for_grade']
 
     skill_name = models.CharField(
         verbose_name='Название навыка',
@@ -60,6 +61,14 @@ class Skill(models.Model):
     required_level_for_grade = models.CharField(
         verbose_name='Необходимый уровень для повышения',
         max_length=MAX_LENGTH_REQ_LEVEL_GRADE)
+
+    class Meta:
+        verbose_name = 'Навык'
+        verbose_name_plural = 'Навыки'
+        ordering = ('skill_name',)
+
+    def __str__(self):
+        return self.skill_name
 
 
 class Employee(models.Model):
