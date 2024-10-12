@@ -1,6 +1,8 @@
-from django.shortcuts import render
+from rest_framework import viewsets
+from users_skills.models import Expertise
+from .serializers import ExpertiseSerializer
 
-# Create your views here.
-class OrderViewSet(ModelViewSet):
-    queryset = Order.objects.all()
-    serializer_class = OrderSerializer
+
+class ExpertiseViewSet(viewsets.ModelViewSet):
+    queryset = Expertise.objects.all()
+    serializer_class = ExpertiseSerializer
