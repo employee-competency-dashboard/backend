@@ -1,17 +1,10 @@
 from drf_extra_fields.fields import Base64ImageField
-from rest_framework.fields import CharField
+from rest_framework.fields import DateTimeField
 from rest_framework.serializers import (ModelSerializer,
                                         PrimaryKeyRelatedField,
                                         SerializerMethodField)
 
-from users_skills.constants import (MAX_LENGTH_GRADE,
-                                    MAX_LENGTH_LEVEL,
-                                    MAX_LENGTH_RIGHTS,
-                                    MAX_LENGTH_SKILL_TYPE,
-                                    MAX_LENGTH_STATUS,
-                                    GRADE, LEVEL, RIGHT, SKILL_TYPE,
-                                    STATUS)
-from users_skills.models import (Employee, Employee_skill, Expertise,
+from users_skills.models import (Employee, Employee_skills, Expertise,
                                  Skill, Skill_for_grade, Team,
                                  Team_s_employees, Team_s_skills, User_s_teams)
 
@@ -30,7 +23,6 @@ class SkillSerializer(ModelSerializer):
     """Сериализатор для модели Skill."""
 
     id_skill = PrimaryKeyRelatedField(read_only=True)
-    # skill_type = CharField(choices=SKILL_TYPE, max_length=MAX_LENGTH_SKILL_TYPE)
 
     class Meta:
         model = Skill
@@ -41,12 +33,11 @@ class EmployeeSerializer(ModelSerializer):
     """Сериализатор для модели Employee."""
 
     id_employee = PrimaryKeyRelatedField(read_only=True)
-    # grade = CharField(choices=GRADE, max_length=MAX_LENGTH_GRADE)
     icon = Base64ImageField(allow_null=True)
 
     class Meta:
         model = Employee
-        fields = ('id_employee', 'firstName', 'lastName', 'role', 'id_grade',
+        fields = ('id_employee', 'firstName', 'lastName', 'role', 'grade',
                   'key_employee', 'icon')
 
 
@@ -77,8 +68,6 @@ class Team_s_employeesSerializer(ModelSerializer):
 class User_s_teamsSerializer(Team_s_employeesSerializer):
     """Сериализатор для модели User_s_teams."""
 
-    # rights = CharField(choices=RIGHT, max_length=MAX_LENGTH_RIGHTS)
-
     class Meta:
         model = User_s_teams
         fields = ('id', 'id_employee', 'id_team', 'rights')
@@ -100,7 +89,6 @@ class Skill_for_gradeSerializer(ModelSerializer):
     """Сериализатор для модели Skill_for_grade."""
 
     id_skill = PrimaryKeyRelatedField(read_only=True)
-    # grade = CharField(choices=GRADE, max_length=MAX_LENGTH_GRADE)
     required_level_for_grade = SerializerMethodField(
         method_name='get_required_level_for_grade')
 
@@ -113,14 +101,12 @@ class Skill_for_gradeSerializer(ModelSerializer):
 
 
 class Employee_skillsSerializer(ModelSerializer):
-    """Сериализатор для модели Employee."""
+    """Сериализатор для модели Employee_skills."""
 
     id_employee = PrimaryKeyRelatedField(read_only=True)
     id_skill = SkillSerializer(read_only=True)
-    # level = CharField(choice=LEVEL, max_length=MAX_LENGTH_LEVEL)
-    # status = CharField(choice=STATUS, max_length=MAX_LENGTH_STATUS)
 
     class Meta:
-        model = Employee_skill
+        model = Employee_skills
         fields = ('id', 'id_employee', 'id_skill', 'level',
-                  'status', 'update_time')
+                  'status', 'update_date')

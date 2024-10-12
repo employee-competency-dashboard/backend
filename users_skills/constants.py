@@ -17,12 +17,12 @@ MAX_LENGTH_URL_CONFLUENCE = 128
 MAX_LENGTH_URL_JIRA = 128
 
 GRADE = (
-    (1, 'senior'),
-    (2, 'middle+'),
-    (3, 'middle'),
-    (4, 'junior+'),
-    (5, 'junior'),
-    (6, 'intern')
+    (1, 'Senior'),
+    (2, 'Middle+'),
+    (3, 'Middle'),
+    (4, 'Junior+'),
+    (5, 'Junior'),
+    (6, 'Intern')
 )
 
 LEVEL = (

@@ -214,7 +214,7 @@ class Team_s_skills(models.Model):
         return f'У команды {self.id_team} есть навыки {self.id_skill}'
 
 
-class Employee_skill(models.Model):
+class Employee_skills(models.Model):
     """Модель Employee_skill (Данные о навыках сотрудников)."""
 
     REQUIRED_FIELDS = ['id_employee', 'id_skill', 'level',
@@ -235,8 +235,7 @@ class Employee_skill(models.Model):
                               max_length=MAX_LENGTH_STATUS)
     update_date = models.DateTimeField(
         'Дата изменения уровня владения навыком',
-        null=True,
-        blank=False)
+        auto_now_add=True)
 
     class Meta:
         verbose_name = 'Навык сотрудника'
@@ -244,7 +243,7 @@ class Employee_skill(models.Model):
         ordering = ('id',)
 
     def __str__(self):
-        return f'{self.firstName} {self.lastName}'
+        return f'У сотрудника {self.id_employee} есть навыки {self.id_skill}'
 
 
 class Skill_for_grade(models.Model):
