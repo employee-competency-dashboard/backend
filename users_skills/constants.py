@@ -5,7 +5,7 @@ MAX_LENGTH_LASTNAME = 128
 MAX_LENGTH_KEY_EMPLOYEE = 4
 MAX_LENGTH_KEY_SKILL = 4
 MAX_LENGTH_LEVEL = 16
-MAX_LENGTH_NAME_EXPERTISE = 16
+MAX_LENGTH_NAME_EXPERTISE = 64
 MAX_LENGTH_REQUIRED_LEVEL = 128
 MAX_LENGTH_REQ_LEVEL_GRADE = 16
 MAX_LENGTH_RIGHTS = 4
@@ -55,7 +55,11 @@ STATUS = (
     (2, 'В процессе развития')
 )
 EXPERTISE = (
-    ('1', 'Компетенция Разработка'),
-    ('2', 'Компетнция Тестирование'),
-    ('3', 'Компетнция Дизайн'),
+    ('Development Competency', 'Компетенция Разработка'),
+    ('Testing Competency', 'Компетнция Тестирование'),
+    ('Design Competency', 'Компетнция Дизайн'),
+    ('Project Management Methodologies', 'Методологии управления проектами'),
+    ('Public Speaking Skills', 'Навыки публичных выступлений'),
+    ('Organization of Workflow', 'Организация рабочего процесса'),
+    ('Interface Design', 'Проектирование интерфейсов'),
 )

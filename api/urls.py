@@ -1,5 +1,5 @@
-from django.urls import path, include
-from rest_framework.routers import DefaultRouter
+from django.urls import include, path
+from rest_framework import routers 
 from drf_spectacular.views import (
     SpectacularAPIView,
     SpectacularSwaggerView,
@@ -7,21 +7,11 @@ from drf_spectacular.views import (
 )
 from .views import ExpertiseViewSet # , SkillViewSet
 
-router = DefaultRouter()
+router = routers.DefaultRouter()
 router.register(r'expertises', ExpertiseViewSet)
 # router.register(r'expertises', SkillViewSet)
 
 urlpatterns = [
     path('v1/', include(router.urls)),
-    path('v1/schema/', SpectacularAPIView.as_view(), name='schema'),
-    path(
-        'v1/schema/swagger/',
-        SpectacularSwaggerView.as_view(url_name='schema'),
-        name='swagger'
-    ),
-    path(
-        'v1/schema/redoc/',
-        SpectacularRedocView.as_view(url_name='schema'),
-        name='redoc'
-    ),       
+    path('', include(router.urls)),
 ]
