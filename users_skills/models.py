@@ -42,8 +42,7 @@ class Expertise(models.Model):
 class Skill(models.Model):
     """Модель Skill (Данные о навыках)."""
 
-    REQUIRED_FIELDS = ['skill_name', 'skill_type', 'id_expertise',
-                       'grade', 'required_level_for_grade']
+    REQUIRED_FIELDS = ['skill_name', 'skill_type', 'id_expertise']
 
     skill_name = models.CharField(
         verbose_name='Название навыка',
@@ -55,12 +54,6 @@ class Skill(models.Model):
                                      verbose_name='Идентификатор компетенции',
                                      related_name='skills',
                                      on_delete=models.CASCADE)
-    grade = models.CharField(verbose_name='Идентификатор грейда сотрудника',
-                             choices=GRADE,
-                             max_length=MAX_LENGTH_GRADE)
-    required_level_for_grade = models.CharField(
-        verbose_name='Необходимый уровень для повышения',
-        max_length=MAX_LENGTH_REQ_LEVEL_GRADE)
 
     class Meta:
         verbose_name = 'Навык'
@@ -75,9 +68,7 @@ class Employee(models.Model):
     """Модель Employee (Данные о сотрудниках)."""
 
     REQUIRED_FIELDS = ['firstName', 'lastName', 'role',
-                       'grade', 'key_employee', 'icon',
-                       'rights', 'id_skill', 'level',
-                       'status', 'update_time']
+                       'grade', 'key_employee', 'icon']
 
     firstName = models.CharField(verbose_name='Имя сотрудника',
                                  max_length=MAX_LENGTH_FIRSTNAME)
@@ -95,24 +86,6 @@ class Employee(models.Model):
     icon = models.ImageField(verbose_name='Ссылка на иконку сотрудника',
                              upload_to='users/images/',
                              null=True)
-    rights = models.CharField(
-        verbose_name='Права сотрудника для работы с дашбордом команды',
-        choices=RIGHT,
-        max_length=MAX_LENGTH_RIGHTS)
-    id_skill = models.ForeignKey(Skill,
-                                 verbose_name='Идентификатор навыка',
-                                 related_name='employees',
-                                 on_delete=models.SET_NULL)
-    level = models.CharField(verbose_name='Уровень владения навыком',
-                             choices=LEVEL,
-                             max_length=MAX_LENGTH_LEVEL)
-    status = models.CharField(verbose_name='Статус развития навыка',
-                              choices=STATUS,
-                              max_length=MAX_LENGTH_STATUS)
-    update_time = models.DateTimeField(
-        'Дата изменения уровня владения навыком',
-        null=True,
-        blank=False)
 
     class Meta:
         verbose_name = 'Сотрудник'
@@ -127,9 +100,7 @@ class Team(models.Model):
     """Модель Team (Данные о команде)."""
 
     REQUIRED_FIELDS = ['about_team', 'url_confluence', 'url_jira',
-                       'team_lead', 'product_owner', 'id_skill',
-                       'key_skill', 'required_level',
-                       'required_count_employees']
+                       'team_lead', 'product_owner']
 
     about_team = models.CharField(verbose_name='Краткая информация о команде',
                                   max_length=MAX_LENGTH_ABOUT_TEAM)
@@ -148,20 +119,6 @@ class Team(models.Model):
                                       related_name='teams_product_owner',
                                       null=True,
                                       on_delete=models.SET_NULL)
-    id_skill = models.ForeignKey(Skill,
-                                 verbose_name='Идентификатор навыка',
-                                 related_name='teams_skill',
-                                 null=True,
-                                 on_delete=models.SET_NULL)
-    key_skill = models.BooleanField(
-        verbose_name='Флаг, является ли навык ключевым',
-        max_length=MAX_LENGTH_KEY_SKILL)
-    required_level = models.CharField(
-        verbose_name='Необходимый уровень владения навыком',
-        max_length=MAX_LENGTH_REQUIRED_LEVEL)
-    required_count_employees = models.PositiveIntegerField(
-        verbose_name=('Количество сотрудников в команде,'
-                      'которые должны обладать навыком'))
 
     class Meta:
         verbose_name = 'Команда'
@@ -170,6 +127,33 @@ class Team(models.Model):
 
     def __str__(self):
         return f'Номер команды: {self.id}'
+
+
+class User_s_teams(models.Model):
+    """Модель User's teams (Данные о правах пользователей)."""
+
+    REQUIRED_FIELDS = ['id_employee', 'id_team', 'rights']
+
+    id_employee = models.ForeignKey(Employee,
+                                    verbose_name='Идентификатор сотрудника',
+                                    related_name='user_s_teams',
+                                    on_delete=models.CASCADE)
+    id_team = models.ForeignKey(Team,
+                                verbose_name='Идентификатор команды',
+                                related_name='user_s_teams',
+                                on_delete=models.CASCADE)
+    rights = models.CharField(
+        verbose_name='Права сотрудника для работы с дашбордом команды',
+        choices=RIGHT,
+        max_length=MAX_LENGTH_RIGHTS)
+
+    class Meta:
+        verbose_name = 'Права пользователя'
+        verbose_name_plural = 'Права пользователей'
+        ordering = ('id_employee',)
+
+    def __str__(self):
+        return f'У пользователя {self.id_employee} есть право на {self.rights}'
 
 
 class Team_s_employees(models.Model):
@@ -184,8 +168,7 @@ class Team_s_employees(models.Model):
     id_team = models.ForeignKey(Team,
                                 verbose_name='Идентификатор команды',
                                 related_name='team_s_employees',
-                                null=True,
-                                on_delete=models.SET_NULL)
+                                on_delete=models.CASCADE)
 
     class Meta:
         verbose_name = 'Состав команды'
@@ -194,3 +177,95 @@ class Team_s_employees(models.Model):
 
     def __str__(self):
         return f'В команде {self.id_team} есть сотрудник(и) {self.id_employee}'
+
+
+class Team_s_skills(models.Model):
+    """Модель Team's skills (Данные о навыках команды)."""
+
+    REQUIRED_FIELDS = ['id_team', 'id_skill', 'key_skill',
+                       'required_level', 'required_count_employees']
+
+    id_team = models.ForeignKey(Team,
+                                verbose_name='Идентификатор команды',
+                                related_name='team_s_skills',
+                                on_delete=models.CASCADE)
+    id_skill = models.ForeignKey(Skill,
+                                 verbose_name='Идентификатор навыка',
+                                 related_name='team_s_skills',
+                                 on_delete=models.CASCADE)
+    key_skill = models.BooleanField(
+        verbose_name='Флаг, является ли навык ключевым',
+        max_length=MAX_LENGTH_KEY_SKILL)
+    required_level = models.CharField(
+        verbose_name='Необходимый уровень владения навыком',
+        max_length=MAX_LENGTH_REQUIRED_LEVEL)
+    required_count_employees = models.PositiveIntegerField(
+        verbose_name=('Количество сотрудников в команде,'
+                      'которые должны обладать навыком'))
+
+    class Meta:
+        verbose_name = 'Навыки команды'
+        verbose_name_plural = 'Навыки команд'
+        ordering = ('id_team',)
+
+    def __str__(self):
+        return f'У команды {self.id_team} есть навыки {self.id_skill}'
+
+
+class Employee_skill(models.Model):
+    """Модель Employee_skill (Данные о навыках сотрудников)."""
+
+    REQUIRED_FIELDS = ['id_employee', 'id_skill', 'level',
+                       'status', 'update_time']
+    id_employee = models.ForeignKey(Employee,
+                                    verbose_name='Идентификатор сотрудника',
+                                    related_name='employee_skills',
+                                    on_delete=models.CASCADE)
+    id_skill = models.ForeignKey(Skill,
+                                 verbose_name='Идентификатор навыка',
+                                 related_name='employee_skills',
+                                 on_delete=models.CASCADE)
+    level = models.CharField(verbose_name='Уровень владения навыком',
+                             choices=LEVEL,
+                             max_length=MAX_LENGTH_LEVEL)
+    status = models.CharField(verbose_name='Статус развития навыка',
+                              choices=STATUS,
+                              max_length=MAX_LENGTH_STATUS)
+    update_date = models.DateTimeField(
+        'Дата изменения уровня владения навыком',
+        null=True,
+        blank=False)
+
+    class Meta:
+        verbose_name = 'Навык сотрудника'
+        verbose_name_plural = 'Навыки сотрудников'
+        ordering = ('id',)
+
+    def __str__(self):
+        return f'{self.firstName} {self.lastName}'
+
+
+class Skill_for_grade(models.Model):
+    """Модель Skill_for_grade (Данные о навыках для грейда)."""
+
+    REQUIRED_FIELDS = ['id_skill', 'grade', 'required_level_for_grade']
+
+    id_skill = models.ForeignKey(Skill,
+                                 verbose_name='Идентификатор навыка',
+                                 related_name='skill_for_grades',
+                                 on_delete=models.CASCADE)
+    grade = models.CharField(verbose_name='Идентификатор грейда сотрудника',
+                             choices=GRADE,
+                             max_length=MAX_LENGTH_GRADE)
+    required_level_for_grade = models.CharField(
+        verbose_name='Необходимый уровень для повышения',
+        max_length=MAX_LENGTH_REQ_LEVEL_GRADE)
+
+    class Meta:
+        verbose_name = 'Навык для грейда'
+        verbose_name_plural = 'Навыки для грейда'
+        ordering = ('id_skill',)
+
+    def __str__(self):
+        return (f'Для грейда {self.grade}'
+                f'необходим навык под номером {self.id_skill}')
