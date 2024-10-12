@@ -105,7 +105,6 @@ class Employee_skillsSerializer(ModelSerializer):
 
     id_employee = PrimaryKeyRelatedField(read_only=True)
     id_skill = SkillSerializer(read_only=True)
-    update_date = DateTimeField()
 
     class Meta:
         model = Employee_skills

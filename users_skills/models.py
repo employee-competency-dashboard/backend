@@ -16,8 +16,8 @@ from users_skills.constants import (MAX_LENGTH_ABOUT_TEAM,
                                     MAX_LENGTH_SKILL_TYPE,
                                     MAX_LENGTH_STATUS,
                                     MAX_LENGTH_URL_CONFLUENCE,
-                                    MAX_LENGTH_URL_JIRA,
-                                    GRADE, LEVEL, RIGHT, SKILL_TYPE,
+                                    MAX_LENGTH_URL_JIRA, EXPERTISE,
+                                    GRADE, LEVEL, RIGHT, SKILL, SKILL_TYPE,
                                     STATUS)
 
 
@@ -28,6 +28,7 @@ class Expertise(models.Model):
 
     name_expertise = models.CharField(
         verbose_name='Название компетенции',
+        choices=EXPERTISE,
         max_length=MAX_LENGTH_NAME_EXPERTISE)
 
     class Meta:
@@ -46,6 +47,7 @@ class Skill(models.Model):
 
     skill_name = models.CharField(
         verbose_name='Название навыка',
+        choices=SKILL,
         max_length=MAX_LENGTH_SKILL_NAME)
     skill_type = models.CharField(verbose_name='Тип навыка',
                                   choices=SKILL_TYPE,
