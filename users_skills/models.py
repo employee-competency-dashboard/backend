@@ -1,11 +1,11 @@
 from django.db import models
 
 from users_skills.constants import (MAX_LENGTH_ABOUT_TEAM,
-                                    MAX_LENGTH_FIRSTNAME,
+                                    MAX_LENGTH_FIRST_NAME,
                                     MAX_LENGTH_GRADE,
                                     MAX_LENGTH_KEY_EMPLOYEE,
                                     MAX_LENGTH_KEY_SKILL,
-                                    MAX_LENGTH_LASTNAME,
+                                    MAX_LENGTH_LAST_NAME,
                                     MAX_LENGTH_LEVEL,
                                     MAX_LENGTH_NAME_EXPERTISE,
                                     MAX_LENGTH_REQUIRED_LEVEL,
@@ -69,13 +69,13 @@ class Skill(models.Model):
 class Employee(models.Model):
     """Модель Employee (Данные о сотрудниках)."""
 
-    REQUIRED_FIELDS = ['firstName', 'lastName', 'role',
+    REQUIRED_FIELDS = ['first_name', 'last_name', 'role',
                        'grade', 'key_employee', 'icon']
 
-    firstName = models.CharField(verbose_name='Имя сотрудника',
-                                 max_length=MAX_LENGTH_FIRSTNAME)
-    lastName = models.CharField(verbose_name='Фамилия сотрудника',
-                                max_length=MAX_LENGTH_LASTNAME)
+    first_name = models.CharField(verbose_name='Имя сотрудника',
+                                  max_length=MAX_LENGTH_FIRST_NAME)
+    last_name = models.CharField(verbose_name='Фамилия сотрудника',
+                                 max_length=MAX_LENGTH_LAST_NAME)
     role = models.CharField(
         verbose_name='Роль сотрудника в команде (должность)',
         max_length=MAX_LENGTH_ROLE)
@@ -92,10 +92,10 @@ class Employee(models.Model):
     class Meta:
         verbose_name = 'Сотрудник'
         verbose_name_plural = 'Сотрудники'
-        ordering = ('lastName',)
+        ordering = ('last_name',)
 
     def __str__(self):
-        return f'{self.firstName} {self.lastName}'
+        return f'{self.first_name} {self.last_name}'
 
 
 class Team(models.Model):

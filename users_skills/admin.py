@@ -29,11 +29,11 @@ class SkillAdmin(admin.ModelAdmin):
 class EmployeeAdmin(admin.ModelAdmin):
     """Модель EmployeeAdmin."""
 
-    list_display = ('firstName', 'lastName', 'role', 'grade',
+    list_display = ('first_name', 'last_name', 'role', 'grade',
                     'key_employee', 'icon')
-    search_fields = ('lastName',)
-    list_filter = ('lastName',)
-    list_display_links = ('lastName',)
+    search_fields = ('last_name',)
+    list_filter = ('last_name',)
+    list_display_links = ('last_name',)
 
 
 @admin.register(Team)
