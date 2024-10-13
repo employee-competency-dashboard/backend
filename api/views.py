@@ -20,13 +20,13 @@ class ExpertiseViewSet(ModelViewSet):
     serializer_class = ExpertiseSerializer
 
 
-class Employee_lastNameViewSet(ModelViewSet):
+class Employee_last_nameViewSet(ModelViewSet):
     """Вьюсет для модели Employee."""
 
     http_method_names = ['get']
 
     def list(self, request):
-        employee_names = Employee.objects.values_list('lastName', flat=True)
+        employee_names = Employee.objects.values_list('last_name', flat=True)
         return Response(employee_names)
 
 
