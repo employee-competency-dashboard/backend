@@ -2,7 +2,7 @@ from django.urls import include, path
 
 from rest_framework.routers import DefaultRouter
 
-from api.views import (Employee_lastNameViewSet,
+from api.views import (Employee_last_nameViewSet,
                        Employee_roleViewSet,
                        Employee_skillsViewSet,
                        ExpertiseViewSet, SkillViewSet,
@@ -22,7 +22,7 @@ v1_router.register('filter-list/expertise', ExpertiseViewSet,
                    basename='expertises')
 v1_router.register('filter-list/skill', SkillViewSet,
                    basename='skills')
-v1_router.register('filter-list/employee-fio', Employee_lastNameViewSet,
+v1_router.register('filter-list/employee-fio', Employee_last_nameViewSet,
                    basename='empployee_names')
 v1_router.register('filter-list/employee-role', Employee_roleViewSet,
                    basename='empployee_roles')

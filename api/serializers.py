@@ -37,7 +37,7 @@ class EmployeeSerializer(ModelSerializer):
 
     class Meta:
         model = Employee
-        fields = ('id_employee', 'firstName', 'lastName', 'role', 'grade',
+        fields = ('id_employee', 'first_name', 'last_name', 'role', 'grade',
                   'key_employee', 'icon')
 
 
