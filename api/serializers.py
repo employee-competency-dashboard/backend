@@ -41,28 +41,28 @@ class EmployeeSerializer(ModelSerializer):
                   'key_employee', 'icon')
 
 
-class TeamSerializer(ModelSerializer):
-    """Сериализатор для модели Team."""
-
-    id_team = PrimaryKeyRelatedField(read_only=True)
-    team_lead = EmployeeSerializer(read_only=True)
-    product_owner = EmployeeSerializer(read_only=True)
-
-    class Meta:
-        model = Team
-        fields = ('id_team', 'about_team', 'url_confluence', 'url_jira',
-                  'team_lead', 'product_owner')
-
 
 class Team_s_employeesSerializer(ModelSerializer):
     """Сериализатор для модели Team_s_employees."""
 
-    id_employee = EmployeeSerializer(read_only=True)
-    id_team = TeamSerializer(read_only=True)
+    employee = EmployeeSerializer(source='id_employee')
 
     class Meta:
         model = Team_s_employees
-        fields = ('id', 'id_employee', 'id_team')
+        fields = ['id_employee', 'id_team', 'employee']
+
+
+class TeamSerializer(ModelSerializer):
+    """Сериализатор для модели Team."""
+
+    team_lead = EmployeeSerializer(read_only=True)
+    product_owner = EmployeeSerializer(read_only=True)
+    employees = Team_s_employeesSerializer(source='team_s_employees', many=True, read_only=True)
+    class Meta:
+        model = Team
+        fields = ['about_team', 'url_confluence', 'url_jira',
+                  'team_lead', 'product_owner', 'employees']
+    
 
 
 class User_s_teamsSerializer(Team_s_employeesSerializer):
