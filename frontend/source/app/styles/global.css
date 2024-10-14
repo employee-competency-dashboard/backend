@@ -1,0 +1,101 @@
+:root {
+  --white-color: #ffffff;
+  --white-smoke-color: #f9f9f9;
+
+  --grey-color: #898989;
+  --grey-light-color: #efefef;
+  --grey-dark-color: #42434b;
+
+  --black-light-color: #1f1f1f;
+  --black-color: #000c1a;
+  --blue-dark-color: #00274f;
+  --red-color: #e10d34;
+  /* --red-color: #e40038; */
+  --red-light-color: #ffe8e1;
+
+  --yellow-cumulus-color: #f5f3c5;
+  --yellow-primrose-color: #e7e49a;
+
+  --green-light-color: #ddf5c5;
+}
+
+* {
+  box-sizing: border-box;
+  padding: 0;
+  margin: 0;
+  font-family: var(--font-manrope);
+}
+
+body {
+  margin: 0;
+  padding: 0;
+  font-family: var(--font-manrope);
+  font-size: 14px;
+  line-height: 24px;
+}
+
+a {
+  /* color: inherit; */
+  color: var(--red-color);
+  text-decoration: none;
+}
+
+/* a:hover {
+  text-decoration: underline;
+} */
+
+h1,
+h2,
+h3 {
+  margin: 0;
+  font-family: var(--font-manrope);
+  font-weight: 600;
+  font-size: 24px;
+  line-height: 24px;
+  letter-spacing: 0em;
+  color: var(--grey-dark-color);
+}
+
+/* h2 {
+  font-size: 16px;
+} */
+
+h3 {
+  font-size: 16px;
+}
+
+p {
+  margin: 0;
+  font-family: var(--font-manrope);
+  font-size: 12px;
+  font-weight: 400;
+  line-height: 22px;
+  letter-spacing: 0em;
+}
+
+/* .fontS {
+  font-size: 10px;
+  line-height: 16px;
+}
+.fontM {
+  font-size: 12px;
+  line-height: 22px;
+}
+.fontMBold {
+  font-size: 12px;
+  line-height: 22px;
+  font-weight: 600;
+}
+.fontL {
+  font-size: 14px;
+  line-height: 24px;
+}
+.fontLBold {
+  font-size: 14px;
+  line-height: 24px;
+  font-weight: 600;
+}
+.fontXL {
+  font-size: 16px;
+  line-height: 32px;
+} */
