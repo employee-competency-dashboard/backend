@@ -6,29 +6,49 @@ import { TeamTableRow } from '../team-table-row';
 // import Image from 'next/image';
 
 export const TeamStats: React.FC<typeTeamStatsProps> = props => {
-  const { teamData } = props;
+  const { teamData, className } = props;
 
-  const [checked, setChecked] = React.useState(false);
+  const level = [
+    { name: 'none', title: 'Не владеет' },
+    { name: 'beginner', title: 'Начинающий' },
+    { name: 'intermediate', title: 'Базовый' },
+    { name: 'advanced', title: 'Уверенный' },
+    { name: 'expert', title: 'Экспертный' },
+  ];
 
-  const chengeCheckbox = (e: any) => {
-    setChecked(!checked);
-    // console.log(e?.target?.name);
-  };
+  const status = [
+    { name: 'low', title: 'Соответствует' },
+    { name: 'normal', title: 'Не соответствует' },
+    { name: 'improving', title: 'В процессе развития' },
+  ];
 
   const requestForTraining = (e: any) => {
     console.log('Отправить запрос на обучение', e);
   };
 
   return (
-    <div className={cn(classes.one)}>
-      <div className={cn(classes.tableToggle)}>
-        Блоки переключателей
-        <input
-          type="checkbox"
-          checked={checked}
-          onChange={chengeCheckbox}
-          name="advanced"
-        />
+    <div className={cn(className, classes.team)}>
+      <div className={cn(classes.glossary)}>
+        <ul className={cn(classes.block, classes.blockLevel)}>
+          {level.map((item, index) => (
+            <li
+              className={cn(classes.levelItem, classes[item.name])}
+              key={index}
+            >
+              {item.title}
+            </li>
+          ))}
+        </ul>
+        <ul className={cn(classes.block, classes.blockStatus)}>
+          {status.map((item, index) => (
+            <li
+              className={cn(classes.statusItem, classes[item.name])}
+              key={index}
+            >
+              {item.title}
+            </li>
+          ))}
+        </ul>
       </div>
 
       <div className={cn(classes.tableTeam)}>
