@@ -1,6 +1,34 @@
 # Хакатон Яндекс.Практикум + Росбанк: Разработка дашборда аналитики компетенций групп и сотрудников Росбанка.
 
-## Описание проекта
+## Сведение о команде:
+[Никита Мальцев](https://t.me/nikfromrus), PM команды,
+[Борис Руденко](https://t.me/barudenko), аналитик данных,
+[Дмитрий Стреленко](https://t.me/d_strelen), системный аналитик,
+[Басанг Амулаков](https://t.me/basang13), бизнес-аналитик,
+[Анна Юдина](https://t.me/yudina_a), дизайнер,
+[Мария](https://t.me/madam_entu), дизайнер,
+[Максим Романенко](https://t.me/MaxRMNK), frontend-разработчик,
+[Адель Гарифуллин](https://github.com/AIGarifullin), python-разработчик,
+[Сергей Виноградов](https://github.com/yan-gabala), python-разработчк.
+
+## Ссылка на Swagger:
+<div>
+    <div id="swagger-ui"></div>
+    <script src="https://cdn.jsdelivr.net/npm/swagger-ui-dist/swagger-ui-bundle.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/swagger-ui-dist/swagger-ui-standalone-preset.js"></script>
+    <script>
+        const ui = SwaggerUIBundle({
+            url: "https://drive.google.com/file/d/1lmD_IYijZIhM2rTudHt33aJe0Xexm9Oj/view?usp=drive_link",
+            dom_id: '#swagger-ui',
+            presets: [
+                SwaggerUIStandalonePreset,
+                SwaggerUIBundle.presets.apis,
+            ],
+            layout: "StandaloneLayout"
+        });
+    </script>
+</div>
+
 
 ## Стек проекта
 Python, Django REST Framework, Nginx, DNS, HTTPS, Docker, PostgreSQL, GitHub Actions
@@ -98,3 +126,6 @@ docker compose exec backend cp -r /app/static/. /backend_static/static/
     git push
     ```
     Для управления процессами *CI/CD* (*Continuous Integration/Continuous Delivery*) открыть раздел *Actions* в репозитории проекта в своем аккаунте.
+
+
+
