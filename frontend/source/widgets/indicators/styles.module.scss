@@ -1,0 +1,49 @@
+.indicators {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 30px;
+  padding: 0 100px 60px 100px;
+  width: 100%;
+}
+
+.busFactor {
+  padding: 30px;
+  border-radius: 12px;
+  background-color: var(--white-smoke-color);
+  color: var(--grey-dark-color);
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+
+  .number {
+    font-size: 64px;
+    line-height: 64px;
+  }
+
+  .title {
+    margin-bottom: 10px;
+    padding-left: 34px;
+    font-size: 20px;
+    line-height: 27px;
+    background-repeat: no-repeat;
+    background-position: left center;
+    background-image: url('./images/bas-factor-icon.svg');
+    background-size: 28px auto;
+  }
+
+  .subtitle {
+    font-size: 16px;
+    line-height: 18px;
+    letter-spacing: -0.01px;
+  }
+
+  &.alert {
+    background-color: var(--red-color);
+    color: var(--white-color);
+
+    .title {
+      color: var(--white-color);
+      background-image: url('./images/bas-factor-icon-white.svg');
+    }
+  }
+}
