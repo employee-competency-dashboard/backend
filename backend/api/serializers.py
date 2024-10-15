@@ -29,7 +29,6 @@ class SkillSerializer(ModelSerializer):
         fields = ('id_skill', 'skill_name', 'skill_type', 'id_expertise')
 
 
-
 class Employee_skillsSerializer(ModelSerializer):
     """Сериализатор для модели Employee_skills."""
 
@@ -40,7 +39,6 @@ class Employee_skillsSerializer(ModelSerializer):
         model = Employee_skills
         fields = ('id', 'id_employee', 'id_skill', 'level',
                   'status', 'update_date')
-
 
 
 class EmployeeSerializer(ModelSerializer):
@@ -60,7 +58,6 @@ class EmployeeSerializer(ModelSerializer):
         return Employee_skillsSerializer(employee_skills, many=True).data
 
 
-
 class Team_s_employeesSerializer(ModelSerializer):
     """Сериализатор для модели Team_s_employees."""
 
@@ -76,12 +73,13 @@ class TeamSerializer(ModelSerializer):
 
     team_lead = EmployeeSerializer(read_only=True)
     product_owner = EmployeeSerializer(read_only=True)
-    employees = Team_s_employeesSerializer(source='team_s_employees', many=True, read_only=True)
+    employees = Team_s_employeesSerializer(source='team_s_employees',
+                                           many=True, read_only=True)
+
     class Meta:
         model = Team
         fields = ['about_team', 'url_confluence', 'url_jira',
                   'team_lead', 'product_owner', 'employees']
-    
 
 
 class User_s_teamsSerializer(Team_s_employeesSerializer):
@@ -117,6 +115,4 @@ class Skill_for_gradeSerializer(ModelSerializer):
 
     def get_required_level_for_grade(self, obj):
         pass
-
-
 
