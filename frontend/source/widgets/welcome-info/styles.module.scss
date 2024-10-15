@@ -1,0 +1,49 @@
+.summary {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 30px;
+  padding: 40px 100px;
+  width: 100%;
+}
+
+.report {
+  padding: 30px;
+  background-color: var(--white-smoke-color);
+  border-radius: 12px;
+  box-sizing: border-box;
+  border: 1px solid var(--grey-light-color);
+  font-size: 16px;
+  line-height: 32px;
+
+  .title {
+    margin: 0 0 10px;
+  }
+
+  .subtitle {
+    margin: 0 0 10px;
+    font-size: 12px;
+    line-height: 22px;
+    color: var(--grey-dark-color);
+  }
+
+  .listItems {
+    margin: 0;
+    padding: 0;
+    list-style: none;
+    // list-style-image: url('./images/marker.png');
+  }
+
+  .item {
+    font-size: 14px;
+    line-height: 20px;
+    letter-spacing: 0.5%;
+    margin: 0 0 12px;
+    padding: 0 0 0 18px;
+
+    background-image: url('./images/marker.png');
+    background-repeat: no-repeat;
+    background-position: left top 2px;
+    background-size: 9px auto;
+    background-clip: padding-box;
+  }
+}
