@@ -1,5 +1,6 @@
 from rest_framework.response import Response
 from rest_framework.viewsets import ModelViewSet, ViewSet
+from drf_spectacular.utils import extend_schema, extend_schema_view, OpenApiResponse
 
 from api.serializers import (EmployeeSerializer, Employee_skillsSerializer,
                              ExpertiseSerializer, SkillSerializer, 

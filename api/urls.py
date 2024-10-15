@@ -1,6 +1,11 @@
 from django.urls import include, path
 
 from rest_framework.routers import DefaultRouter
+from drf_spectacular.views import (
+    SpectacularAPIView,
+    SpectacularSwaggerView,
+    SpectacularRedocView
+)
 
 from api.views import (Employee_last_nameViewSet,
                        Employee_roleViewSet,
@@ -27,6 +32,18 @@ v1_router.register('filter-list/employee-fio', Employee_last_nameViewSet,
 v1_router.register('filter-list/employee-role', Employee_roleViewSet,
                    basename='empployee_roles')
 
+
 urlpatterns = [
-    path('', include(v1_router.urls))
+    path('', include(v1_router.urls)),
+    path('schema/', SpectacularAPIView.as_view(), name='schema'),
+    path(
+        'schema/swagger/',
+        SpectacularSwaggerView.as_view(url_name='schema'),
+        name='swagger'
+    ),
+    path(
+        'schema/redoc/',
+        SpectacularRedocView.as_view(url_name='schema'),
+        name='redoc'
+    )   
 ]
