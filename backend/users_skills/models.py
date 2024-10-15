@@ -1,9 +1,9 @@
-import random
 from django.db import models
 
 from users_skills.constants import (MAX_LENGTH_ABOUT_TEAM,
                                     MAX_LENGTH_FIRST_NAME,
                                     MAX_LENGTH_GRADE,
+                                    MAX_LENGTH_KEY_EMPLOYEE,
                                     MAX_LENGTH_KEY_SKILL,
                                     MAX_LENGTH_LAST_NAME,
                                     MAX_LENGTH_LEVEL,
@@ -12,10 +12,13 @@ from users_skills.constants import (MAX_LENGTH_ABOUT_TEAM,
                                     MAX_LENGTH_REQ_LEVEL_GRADE,
                                     MAX_LENGTH_RIGHTS,
                                     MAX_LENGTH_ROLE,
+                                    MAX_LENGTH_SKILL_NAME,
+                                    MAX_LENGTH_SKILL_TYPE,
                                     MAX_LENGTH_STATUS,
                                     MAX_LENGTH_URL_CONFLUENCE,
                                     MAX_LENGTH_URL_JIRA, EXPERTISE,
-                                    RIGHT, GRADE, STATUS, LEVEL)
+                                    GRADE, LEVEL, RIGHT, SKILL, SKILL_TYPE,
+                                    STATUS)
 
 
 class Expertise(models.Model):
@@ -38,66 +41,53 @@ class Expertise(models.Model):
 
 
 class Skill(models.Model):
-    """Модель Skill (Навыки)."""
+    """Модель Skill (Данные о навыках)."""
 
-    LEVEL_CHOICES = [
-        ('none', 'None'),
-        ('beginner', 'Beginner'),
-        ('intermediate', 'Intermediate'),
-        ('advanced', 'Advanced'),
-        ('expert', 'Expert'),
-    ]
+    REQUIRED_FIELDS = ['skill_name', 'skill_type', 'id_expertise']
 
-    STATUS_CHOICES = [
-        ('low', 'Low'),
-        ('normal', 'Normal'),
-        ('improving', 'Improving'),
-    ]
-
-    skill = models.CharField(verbose_name='Навык',
-                             max_length=100)
-    level = models.CharField(verbose_name='Уровень',
-                             choices=LEVEL_CHOICES, max_length=50)    
-    status = models.CharField(verbose_name='Статус',
-                              choices=STATUS_CHOICES, max_length=50)
+    skill_name = models.CharField(
+        verbose_name='Название навыка',
+        choices=SKILL,
+        max_length=MAX_LENGTH_SKILL_NAME)
+    skill_type = models.CharField(verbose_name='Тип навыка',
+                                  choices=SKILL_TYPE,
+                                  max_length=MAX_LENGTH_SKILL_TYPE)
+    id_expertise = models.ForeignKey(Expertise,
+                                     verbose_name='Идентификатор компетенции',
+                                     related_name='skills',
+                                     on_delete=models.CASCADE)
 
     class Meta:
         verbose_name = 'Навык'
         verbose_name_plural = 'Навыки'
+        ordering = ('skill_name',)
 
     def __str__(self):
-        return self.skill
+        return self.skill_name
 
 
 class Employee(models.Model):
     """Модель Employee (Данные о сотрудниках)."""
 
     REQUIRED_FIELDS = ['first_name', 'last_name', 'role',
-                       'grade', 'key_employee', 'userPhoto']
+                       'grade', 'key_employee', 'icon']
 
-    userPhoto = models.ImageField(verbose_name='Ссылка на иконку сотрудника',
-                             upload_to='users/images/',
-                             null=True)
     first_name = models.CharField(verbose_name='Имя сотрудника',
                                   max_length=MAX_LENGTH_FIRST_NAME)
     last_name = models.CharField(verbose_name='Фамилия сотрудника',
                                  max_length=MAX_LENGTH_LAST_NAME)
-    key_employee = models.BooleanField(verbose_name='Является ли сотрудник ключевым',
-                                       default=False)
-    role = models.CharField(verbose_name='Роль сотрудника в команде (должность)',
-                            max_length=MAX_LENGTH_ROLE)
+    role = models.CharField(
+        verbose_name='Роль сотрудника в команде (должность)',
+        max_length=MAX_LENGTH_ROLE)
     grade = models.CharField(verbose_name='Идентификатор грейда сотрудника',
                              choices=GRADE,
                              max_length=MAX_LENGTH_GRADE)
-    skills = models.ManyToManyField(Skill, verbose_name='Навыки сотрудников',
-                                    related_name='employees')
-    expertise = models.FloatField(verbose_name='Экспертность', default=0.0)
-    progress = models.FloatField(verbose_name='Прогресс', default=0.0)
-
-    def save(self, *args, **kwargs):
-        self.expertise = random.uniform(0.5, 0.95)
-        self.progress = random.uniform(0.5, 0.95)
-        super().save(*args, **kwargs)
+    key_employee = models.BooleanField(
+        verbose_name='Является ли сотрудник ключевым',
+        max_length=MAX_LENGTH_KEY_EMPLOYEE)
+    icon = models.ImageField(verbose_name='Ссылка на иконку сотрудника',
+                             upload_to='users/images/',
+                             null=True)
 
     class Meta:
         verbose_name = 'Сотрудник'
@@ -142,10 +132,11 @@ class Team(models.Model):
 
 
 class User_s_teams(models.Model):
-    "Модель User's teams (Данные о правах пользователей)."
+    """Модель User's teams (Данные о правах пользователей)."""
 
+    REQUIRED_FIELDS = ['id_employee', 'id_team', 'rights']
 
-    last_name = models.ForeignKey(Employee,
+    id_employee = models.ForeignKey(Employee,
                                     verbose_name='Идентификатор сотрудника',
                                     related_name='user_s_teams',
                                     on_delete=models.CASCADE)
@@ -165,8 +156,6 @@ class User_s_teams(models.Model):
 
     def __str__(self):
         return f'У пользователя {self.id_employee} есть право на {self.rights}'
-
-
 
 
 class Team_s_employees(models.Model):
