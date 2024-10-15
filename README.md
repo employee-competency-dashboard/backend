@@ -1,6 +1,6 @@
 # Хакатон Яндекс.Практикум + Росбанк: Разработка дашборда аналитики компетенций групп и сотрудников Росбанка.
 
-## Сведение о команде:
+## Сведение о команде
 - [Никита Мальцев](https://t.me/nikfromrus), PM команды,
 - [Борис Руденко](https://t.me/barudenko), аналитик данных,
 - [Дмитрий Стреленко](https://t.me/d_strelen), системный аналитик,
@@ -11,16 +11,11 @@
 - [Адель Гарифуллин](https://github.com/AIGarifullin), python-разработчик,
 - [Сергей Виноградов](https://github.com/yan-gabala), python-разработчк.
 
-## Ссылка на Swagger:
-[Ссылка на Хакатон Росбанк API.yaml файл](https://drive.google.com/file/d/1lmD_IYijZIhM2rTudHt33aJe0Xexm9Oj/view?usp=drive_link)
+## Ссылка на Swagger
+[Ссылка на файл Хакатон Росбанк API.yaml](https://drive.google.com/file/d/1lmD_IYijZIhM2rTudHt33aJe0Xexm9Oj/view?usp=drive_link)
 
-## Стек проекта
-Python, Django REST Framework, Nginx, DNS, HTTPS, Docker, PostgreSQL, GitHub Actions
-
-## Ссылка на развернутый проект
-https://rosbankdashboard.ddns.net
-
-## Запуск локальной версии проекта
+## Инструкция по сборке и запуску
+### Запуск локальной версии проекта
 Перейти в директорию с файлом **docker-compose.yml**, выполнить запуск и миграции:
 
 ```
@@ -30,12 +25,12 @@ docker compose exec backend python manage.py collectstatic
 docker compose exec backend cp -r /app/static/. /backend_static/static/
 ```
 
-## Отличия обычной версии проекта от продакш
+### Отличия обычной версии проекта от продакш
 Продакш-версия проекта позволяет:
 * Автоматизировать запуск и обновление приложения;
 * Сделать запуск приложения воспроизводимым на любых серверах, независимо от настроек.
 
-## Запуск продакш-версии проекта
+### Запуск продакш-версии проекта
 Для этого необходимо:
 1. Собрать образы `rosbank_frontend`, `rosbank_backend` и `rosbank_gateway` и залить их на Docker Hub:
 
@@ -111,5 +106,6 @@ docker compose exec backend cp -r /app/static/. /backend_static/static/
     ```
     Для управления процессами *CI/CD* (*Continuous Integration/Continuous Delivery*) открыть раздел *Actions* в репозитории проекта в своем аккаунте.
 
-
+## Стек проекта
+Python, Django REST Framework, Nginx, DNS, HTTPS, Docker, PostgreSQL, GitHub Actions
 
