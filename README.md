@@ -8,6 +8,12 @@ Python, Django REST Framework, Nginx, DNS, HTTPS, Docker, PostgreSQL, GitHub Act
 ## Ссылка на развернутый проект
 https://rosbankdashboard.ddns.net
 
+## Примеры запросов:
+
+> Подробнее можно ознакомится в документации Redoc https://rosbankdashboard.ddns.net/dashboards/teams/schema/redoc/
+
+> Подробнее можно ознакомится в документации Swagger https://rosbankdashboard.ddns.net/dashboards/teams/schema/swagger/
+
 ## Запуск локальной версии проекта
 Перейти в директорию с файлом **docker-compose.yml**, выполнить запуск и миграции:
 
