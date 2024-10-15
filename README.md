@@ -12,23 +12,7 @@
 - [Сергей Виноградов](https://github.com/yan-gabala), python-разработчк.
 
 ## Ссылка на Swagger:
-<div>
-    <div id="swagger-ui"></div>
-    <script src="https://cdn.jsdelivr.net/npm/swagger-ui-dist/swagger-ui-bundle.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/swagger-ui-dist/swagger-ui-standalone-preset.js"></script>
-    <script>
-        const ui = SwaggerUIBundle({
-            url: "https://drive.google.com/file/d/1lmD_IYijZIhM2rTudHt33aJe0Xexm9Oj/view?usp=drive_link",
-            dom_id: '#swagger-ui',
-            presets: [
-                SwaggerUIStandalonePreset,
-                SwaggerUIBundle.presets.apis,
-            ],
-            layout: "StandaloneLayout"
-        });
-    </script>
-</div>
-
+[Ссылка на Хакатон Росбанк API.yaml файл](https://drive.google.com/file/d/1lmD_IYijZIhM2rTudHt33aJe0Xexm9Oj/view?usp=drive_link)
 
 ## Стек проекта
 Python, Django REST Framework, Nginx, DNS, HTTPS, Docker, PostgreSQL, GitHub Actions
