@@ -29,23 +29,42 @@ class SkillSerializer(ModelSerializer):
         fields = ('id_skill', 'skill_name', 'skill_type', 'id_expertise')
 
 
+
+class Employee_skillsSerializer(ModelSerializer):
+    """Сериализатор для модели Employee_skills."""
+
+    id_employee = PrimaryKeyRelatedField(read_only=True)
+    id_skill = SkillSerializer(read_only=True)
+
+    class Meta:
+        model = Employee_skills
+        fields = ('id', 'id_employee', 'id_skill', 'level',
+                  'status', 'update_date')
+
+
+
 class EmployeeSerializer(ModelSerializer):
     """Сериализатор для модели Employee."""
 
     id_employee = PrimaryKeyRelatedField(read_only=True)
     icon = Base64ImageField(allow_null=True)
+    skills = SerializerMethodField()
 
     class Meta:
         model = Employee
         fields = ('id_employee', 'first_name', 'last_name', 'role', 'grade',
-                  'key_employee', 'icon')
+                  'skills','key_employee', 'icon')
+        
+    def get_skills(self, obj):
+        employee_skills = Employee_skills.objects.filter(id_employee=obj)
+        return Employee_skillsSerializer(employee_skills, many=True).data
 
 
 
 class Team_s_employeesSerializer(ModelSerializer):
     """Сериализатор для модели Team_s_employees."""
 
-    employee = EmployeeSerializer(source='id_employee')
+    employee = EmployeeSerializer(source='id_employee', read_only=True)
 
     class Meta:
         model = Team_s_employees
@@ -100,13 +119,4 @@ class Skill_for_gradeSerializer(ModelSerializer):
         pass
 
 
-class Employee_skillsSerializer(ModelSerializer):
-    """Сериализатор для модели Employee_skills."""
 
-    id_employee = PrimaryKeyRelatedField(read_only=True)
-    id_skill = SkillSerializer(read_only=True)
-
-    class Meta:
-        model = Employee_skills
-        fields = ('id', 'id_employee', 'id_skill', 'level',
-                  'status', 'update_date')
