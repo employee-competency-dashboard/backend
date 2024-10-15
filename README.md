@@ -1,15 +1,15 @@
 # Хакатон Яндекс.Практикум + Росбанк: Разработка дашборда аналитики компетенций групп и сотрудников Росбанка.
 
 ## Сведение о команде:
-[Никита Мальцев](https://t.me/nikfromrus), PM команды,
-[Борис Руденко](https://t.me/barudenko), аналитик данных,
-[Дмитрий Стреленко](https://t.me/d_strelen), системный аналитик,
-[Басанг Амулаков](https://t.me/basang13), бизнес-аналитик,
-[Анна Юдина](https://t.me/yudina_a), дизайнер,
-[Мария](https://t.me/madam_entu), дизайнер,
-[Максим Романенко](https://t.me/MaxRMNK), frontend-разработчик,
-[Адель Гарифуллин](https://github.com/AIGarifullin), python-разработчик,
-[Сергей Виноградов](https://github.com/yan-gabala), python-разработчк.
+- [Никита Мальцев](https://t.me/nikfromrus), PM команды,
+- [Борис Руденко](https://t.me/barudenko), аналитик данных,
+- [Дмитрий Стреленко](https://t.me/d_strelen), системный аналитик,
+- [Басанг Амулаков](https://t.me/basang13), бизнес-аналитик,
+- [Анна Юдина](https://t.me/yudina_a), дизайнер,
+- [Мария](https://t.me/madam_entu), дизайнер,
+- [Максим Романенко](https://t.me/MaxRMNK), frontend-разработчик,
+- [Адель Гарифуллин](https://github.com/AIGarifullin), python-разработчик,
+- [Сергей Виноградов](https://github.com/yan-gabala), python-разработчк.
 
 ## Ссылка на Swagger:
 <div>
