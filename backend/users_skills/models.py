@@ -1,6 +1,7 @@
 from django.db import models
 
-from users_skills.constants import (MAX_LENGTH_ABOUT_TEAM,
+from users_skills.constants import (EXPERTISE, GRADE, LEVEL,
+                                    MAX_LENGTH_ABOUT_TEAM,
                                     MAX_LENGTH_FIRST_NAME,
                                     MAX_LENGTH_GRADE,
                                     MAX_LENGTH_KEY_EMPLOYEE,
@@ -16,9 +17,8 @@ from users_skills.constants import (MAX_LENGTH_ABOUT_TEAM,
                                     MAX_LENGTH_SKILL_TYPE,
                                     MAX_LENGTH_STATUS,
                                     MAX_LENGTH_URL_CONFLUENCE,
-                                    MAX_LENGTH_URL_JIRA, EXPERTISE,
-                                    GRADE, LEVEL, RIGHT, SKILL, SKILL_TYPE,
-                                    STATUS)
+                                    MAX_LENGTH_URL_JIRA, RIGHT, SKILL,
+                                    SKILL_TYPE, STATUS)
 
 
 class Expertise(models.Model):

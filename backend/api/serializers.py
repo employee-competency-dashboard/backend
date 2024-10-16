@@ -1,5 +1,4 @@
 from drf_extra_fields.fields import Base64ImageField
-from rest_framework.fields import DateTimeField
 from rest_framework.serializers import (ModelSerializer,
                                         PrimaryKeyRelatedField,
                                         SerializerMethodField)
@@ -51,8 +50,8 @@ class EmployeeSerializer(ModelSerializer):
     class Meta:
         model = Employee
         fields = ('id_employee', 'first_name', 'last_name', 'role', 'grade',
-                  'skills','key_employee', 'icon')
-        
+                  'skills', 'key_employee', 'icon')
+
     def get_skills(self, obj):
         employee_skills = Employee_skills.objects.filter(id_employee=obj)
         return Employee_skillsSerializer(employee_skills, many=True).data
@@ -115,4 +114,3 @@ class Skill_for_gradeSerializer(ModelSerializer):
 
     def get_required_level_for_grade(self, obj):
         pass
-
