@@ -1,4 +1,4 @@
-name: Main Rosbank Hackathon workflow
+name: Main rosbank_backend workflow
 
 on:
   push:
