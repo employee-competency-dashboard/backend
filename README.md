@@ -1,6 +1,14 @@
 # Хакатон Яндекс.Практикум + Росбанк: Разработка дашборда аналитики компетенций групп и сотрудников Росбанка.
 ![workflow](https://github.com/AIGarifullin/foodgram/actions/workflows/main.yml/badge.svg)
 
+Даты проведения хакатона: 4 сентября - 16 октября 2024 года.
+
+Организатор: АНО ДПО «Образовательные технологии Яндекса»
+
+Соорганизатор: ПАО РОСБАНК
+
+[Подробная информация о хакатоне](https://norikov.notion.site/ec7ad9d3121d49d19354777c02454541)
+
 ![Header](https://github.com/employee-competency-dashboard/rosbank_backend/blob/main/frontend/public/Title.png?raw=true)
 
 ## Сведение о команде
@@ -20,6 +28,7 @@
 
 ## Примеры запросов:
 > Подробнее можно ознакомится в документации Redoc https://rosbankdashboard.ddns.net/dashboards/teams/schema/redoc/
+
 > Подробнее можно ознакомится в документации Swagger https://rosbankdashboard.ddns.net/dashboards/teams/schema/swagger/
 
 ## Инструкция по сборке и запуску
@@ -98,7 +107,7 @@ docker compose exec backend cp -r /app/static/. /backend_static/static/
     sudo service nginx reload
     ```
 
-6. Подготовить свой удаленный сервер к публикации проекта. Очистить диск сервера от лишних данных (кеш npm, APT, старые системные логи): 
+6. Подготовить свой удаленный сервер к публикации проекта. Очистить диск сервера от лишних данных (кеш npm, APT, старые системные логи):
     ```
     npm cache clean --force
     sudo apt clean
