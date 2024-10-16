@@ -1,5 +1,5 @@
 # Хакатон Яндекс.Практикум + Росбанк: Разработка дашборда аналитики компетенций групп и сотрудников Росбанка.
-![workflow](https://github.com/AIGarifullin/foodgram/actions/workflows/main.yml/badge.svg)
+![workflow](https://github.com/employee-competency-dashboard/rosbank_backend/actions/workflows/main.yml/badge.svg)
 
 Даты проведения хакатона: 4 сентября - 16 октября 2024 года.
 
