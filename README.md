@@ -14,6 +14,10 @@
 ## Ссылка на Swagger
 [Ссылка на файл Хакатон Росбанк API.yaml](https://drive.google.com/file/d/1lmD_IYijZIhM2rTudHt33aJe0Xexm9Oj/view?usp=drive_link)
 
+## Примеры запросов:
+> Подробнее можно ознакомится в документации Redoc https://rosbankdashboard.ddns.net/dashboards/teams/schema/redoc/
+> Подробнее можно ознакомится в документации Swagger https://rosbankdashboard.ddns.net/dashboards/teams/schema/swagger/
+
 ## Инструкция по сборке и запуску
 ### Запуск локальной версии проекта
 Перейти в директорию с файлом **docker-compose.yml**, выполнить запуск и миграции:
