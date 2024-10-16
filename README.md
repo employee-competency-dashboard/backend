@@ -1,5 +1,7 @@
 # Хакатон Яндекс.Практикум + Росбанк: Разработка дашборда аналитики компетенций групп и сотрудников Росбанка.
 
+![Header](https://github.com/employee-competency-dashboard/rosbank_backend/blob/main/frontend/public/Title.png?raw=true)
+
 ## Сведение о команде
 - [Никита Мальцев](https://t.me/nikfromrus), PM команды,
 - [Борис Руденко](https://t.me/barudenko), аналитик данных,
@@ -11,7 +13,6 @@
 - [Адель Гарифуллин](https://github.com/AIGarifullin), python-разработчик,
 - [Сергей Виноградов](https://github.com/yan-gabala), python-разработчк.
 
-![Header](https://github.com/employee-competency-dashboard/rosbank_backend/blob/main/frontend/public/Title.png?raw=true)
 
 ## Ссылка на Swagger
 [Ссылка на файл Хакатон Росбанк API.yaml](https://drive.google.com/file/d/1lmD_IYijZIhM2rTudHt33aJe0Xexm9Oj/view?usp=drive_link)
