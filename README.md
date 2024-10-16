@@ -1,4 +1,5 @@
 # Хакатон Яндекс.Практикум + Росбанк: Разработка дашборда аналитики компетенций групп и сотрудников Росбанка.
+![workflow](https://github.com/AIGarifullin/foodgram/actions/workflows/main.yml/badge.svg)
 
 ![Header](https://github.com/employee-competency-dashboard/rosbank_backend/blob/main/frontend/public/Title.png?raw=true)
 
@@ -11,7 +12,7 @@
 - [Мария](https://t.me/madam_entu), дизайнер,
 - [Максим Романенко](https://t.me/MaxRMNK), frontend-разработчик,
 - [Адель Гарифуллин](https://github.com/AIGarifullin), python-разработчик,
-- [Сергей Виноградов](https://github.com/yan-gabala), python-разработчк.
+- [Сергей Виноградов](https://github.com/yan-gabala), python-разработчик.
 
 
 ## Ссылка на Swagger
