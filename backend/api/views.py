@@ -2,7 +2,7 @@ from rest_framework.response import Response
 from rest_framework.viewsets import ModelViewSet
 
 from api.serializers import (Employee_skillsSerializer,
-                             ExpertiseSerializer, SkillSerializer, 
+                             ExpertiseSerializer, SkillSerializer,
                              Skill_for_gradeSerializer, TeamSerializer,
                              Team_s_employeesSerializer,
                              Team_s_skillsSerializer,
