@@ -39,6 +39,10 @@ docker compose exec backend python manage.py migrate
 docker compose exec backend python manage.py collectstatic
 docker compose exec backend cp -r /app/static/. /backend_static/static/
 ```
+Для проверки запуска контейнеров выполнить команду:
+```
+sudo docker ps
+```
 
 ### Отличия обычной версии проекта от продакш
 Продакш-версия проекта позволяет:
