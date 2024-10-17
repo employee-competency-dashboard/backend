@@ -121,6 +121,17 @@ docker compose exec backend cp -r /app/static/. /backend_static/static/
     ```
     Для управления процессами *CI/CD* (*Continuous Integration/Continuous Delivery*) открыть раздел *Actions* в репозитории проекта в своем аккаунте.
 
+8. Для работы с проектом создать .env-файл по следующему образцу:
+    ```
+    ALLOWED_HOSTS = * xxx.xxx.xxx.xxx 127.0.0.1 localhost
+    DB_HOST = db
+    DB_PORT = 5432
+    DEBUG = False
+    POSTGRES_USER = django_user
+    POSTGRES_PASSWORD = mysecretpassword
+    POSTGRES_DB = django
+    SECRET_KEY = ..... (см. файл **settings.py**)
+    ```
+
 ## Стек проекта
 Python, Django REST Framework, Nginx, DNS, HTTPS, Docker, PostgreSQL, GitHub Actions
-
