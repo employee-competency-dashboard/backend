@@ -1,28 +1,38 @@
-import React from 'react';
 import cn from 'classnames';
 import classes from './styles.module.scss';
 import { typeSkillsStatsProps } from './types';
-// import { TeamTableRow } from '../team-table-row';
+import { SkillTableRow } from '@/source/features/skill-table-row';
 
 export const SkillsStats: React.FC<typeSkillsStatsProps> = props => {
-  const { className } = props;
+  const { skillData, skillLimit, className } = props;
 
-  const [checked, setChecked] = React.useState(false);
-
-  const chengeCheckbox = (e: any) => {
-    setChecked(!checked);
-    // console.log(e?.target?.name);
+  const glossary = {
+    none: 'Не владеет',
+    junior: 'Начинающий',
+    middle: 'Базовый',
+    senior: 'Уверенный',
+    expert: 'Экспертный',
   };
 
-  const requestForTraining = (e: any) => {
-    console.log('Отправить запрос на обучение', e);
-  };
+  // Получает только ключевые скиллы
+  const keySkills = skillData
+    .filter(skill => skill.keySkill)
+    .slice(0, skillLimit);
 
   return (
     <div className={cn(className, classes.skills)}>
-      {/* <div className={cn(classes.glossary)}>Пояснение к таблице</div> */}
+      <div className={cn(classes.glossary)}>
+        <ul className={cn(classes.listItems)}>
+          {Object.entries(glossary).map(([key, value]) => (
+            <li className={cn(classes.item)} key={key}>
+              <span className={cn(classes.marker, classes[key])}></span>
+              {value}
+            </li>
+          ))}
+        </ul>
+      </div>
 
-      <div className={cn(classes.tableTeam)}>
+      <div className={cn(classes.tableSkills)}>
         <div className={cn(classes.tableHeader)}>
           <div className={cn(classes.skills, classes.tableCell)}>
             Ключевые навыки
@@ -37,15 +47,19 @@ export const SkillsStats: React.FC<typeSkillsStatsProps> = props => {
           <div className={cn(classes.alert, classes.tableCell)}></div>
         </div>
 
-        <div className={cn(classes.sorry)}>Не успел сделать</div>
-        {/* {teamData.map((item, index) => (
-          <TeamTableRow
+        {keySkills.map((item, index) => (
+          <SkillTableRow
             key={index}
-            user={item}
-            className={cn(classes.tableUserRow)}
-            requestForTraining={requestForTraining}
+            // skillName={item.skillName}
+            title={item.title}
+            image={item.image}
+            keySkill={item.keySkill}
+            type={item.type}
+            level={item.level}
+            targetLevel={item.targetLevel}
+            className={cn(classes.tableSkillsRow)}
           />
-        ))} */}
+        ))}
       </div>
     </div>
   );

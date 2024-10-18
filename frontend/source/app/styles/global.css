@@ -18,6 +18,16 @@
   --yellow-primrose-color: #e7e49a;
 
   --green-light-color: #ddf5c5;
+
+  --none-level-color: #eea4b1;
+  --junior-level-color: #e10d34;
+  --middle-level-color: #42434b;
+  --senior-level-color: #99a7b8;
+  --expert-level-color: #00234d;
+
+  --normal-status-color: #ffffff;
+  --low-status-color: #ffe8e1;
+  --improving-status-color: linear-gradient(135deg, #ffe8e1 50%, #000c1a 50%);
 }
 
 * {
@@ -53,7 +63,7 @@ h3 {
   font-weight: 600;
   font-size: 24px;
   line-height: 24px;
-  letter-spacing: 0em;
+  letter-spacing: 0px;
   color: var(--grey-dark-color);
 }
 
@@ -71,7 +81,7 @@ p {
   font-size: 12px;
   font-weight: 400;
   line-height: 22px;
-  letter-spacing: 0em;
+  letter-spacing: 0px;
 }
 
 /* .fontS {

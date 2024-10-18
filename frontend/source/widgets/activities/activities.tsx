@@ -4,38 +4,47 @@ import React from 'react';
 import cn from 'classnames';
 import classes from './styles.module.scss';
 import { typeActivitiesProps } from './types';
-// import { typeTrainingCardListProps } from '@/source/features/training-card-list/types';
-// import Image from 'next/image';
 import Link from 'next/link';
-import { Button } from '@/source/shared/ui/button';
-// import { AvatarGroup } from '@/source/shared/ui/avatar-group';
-// import { TagList } from '@/source/shared/ui/tag-list';
-// import { TrainingCard } from '@/source/features/training-card-list/training-card';
 import { TrainingCardList } from '@/source/features/training-card-list';
-
-// import taskData from '@/public/demo-task-list.json';
 
 export const Activities: React.FC<typeActivitiesProps> = props => {
   const { taskList, handleAddToPlan } = props;
 
-  const [isOpen, setIsOpen] = React.useState(true);
-
-  const handleChangeVisibility = () => {
-    setIsOpen(!isOpen);
-  };
-
-  // Карточек изначально
   const initialCardCount = 4;
-  // Каточек добавлять по клику "Еще"
   const addVisibleCard = 2;
 
   const [visibleCardCount, setVisibleCardCount] =
     React.useState(initialCardCount);
 
   const handleGetMoreCards = () => {
-    // console.log('загрузить еще карточки');
     setVisibleCardCount(visibleCardCount + addVisibleCard);
   };
+
+  const [isOpen, setIsOpen] = React.useState<boolean>(true);
+  const contentRef = React.useRef<HTMLDivElement | null>(null);
+  const [blockHeight, setBlockHeight] = React.useState<number>(0);
+
+  const handleChangeVisibility = () => {
+    setIsOpen(!isOpen);
+  };
+
+  React.useEffect(() => {
+    const handleResize = () => {
+      if (contentRef.current) {
+        setBlockHeight(contentRef.current.scrollHeight);
+      }
+    };
+
+    // Let's set the initial size
+    handleResize();
+
+    window.addEventListener('resize', handleResize);
+
+    // Clearing the event handler
+    return () => {
+      window.removeEventListener('resize', handleResize);
+    };
+  }, [isOpen, visibleCardCount]);
 
   return (
     <section className={cn(classes.activities)}>
@@ -61,61 +70,20 @@ export const Activities: React.FC<typeActivitiesProps> = props => {
       </div>
 
       <div
-        // ref={ref}
+        ref={contentRef}
         className={cn(classes.cardWrapper, { [classes.open]: isOpen })}
+        style={{
+          maxHeight: isOpen ? `${blockHeight}px` : '0',
+        }}
       >
         <TrainingCardList
-          // films={cards?.slice(0, roundedVisibleCardCount)}
           taskList={taskList?.slice(0, visibleCardCount)}
           addVisibleCard={addVisibleCard}
           summTask={taskList.length}
           handleAddToPlan={handleAddToPlan}
           handleGetMoreCards={handleGetMoreCards}
         />
-
-        {/* {taskList.map((item, index) => (
-          <TrainingCardList
-            key={index}
-            task={item}
-            handleAddToPlan={handleAddToPlan}
-            handleGetMoreCards={handleGetMoreCards}
-          />
-        ))} */}
-
-        {/* <div className={cn(classes.buttonWrapper)}>
-          <Button
-            variant="white"
-            className={cn(classes.more)}
-            onClick={handleGetMoreCards}
-            // disabled={true}
-          >
-            Показать еще
-          </Button>
-        </div> */}
       </div>
     </section>
   );
 };
-
-// const handleChangeVisibility = () => {
-//   setIsOpen(!isOpen);
-//   console.log(ref.current?.clientHeight);
-// };
-
-// const ref = React.useRef<HTMLDivElement>(null);
-// const [height, setHeight] = React.useState(0);
-
-// // React.useLayoutEffect(() => {
-// //   setHeight(ref.current?.clientHeight);
-// // }, []);
-
-// React.useEffect(() => {
-//   function handleResize() {
-//     setHeight(ref.current?.clientHeight);
-//   }
-
-//   window.addEventListener('resize', handleWindowResize);
-//   return window.removeEventListener('resize', handleWindowResize);
-// }, []);
-
-// // console.log(ref);

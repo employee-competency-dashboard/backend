@@ -44,12 +44,13 @@
   font-family: var(--font-manrope);
   color: var(--red-color);
   cursor: pointer;
-  // letter-spacing: 0.5%;
+  letter-spacing: 0.005px;
   background-color: transparent;
   border: none;
   background-repeat: no-repeat;
   background-position: left center;
   background-size: 16px auto;
+  background-clip: padding-box;
   background-image: url('./images/show-icon.svg');
 
   &.show {
@@ -63,16 +64,11 @@
 }
 
 .cardWrapper {
-  // max-height: 0;
-  height: 0px;
-  line-height: 0px;
   overflow: hidden;
-  transition: all 0.5s;
+  line-height: 0;
+  transition: all 0.3s;
 
   &.open {
-    // max-height: 200px;
-    height: 100%;
     line-height: 27px;
-    // max-height: max-content;
   }
 }

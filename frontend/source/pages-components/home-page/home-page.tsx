@@ -8,6 +8,7 @@ import userData from '@/public/user.json';
 import summaryData from '@/public/demo-summary.json';
 import taskData from '@/public/demo-task-list.json';
 import teamData from '@/public/demo-team.json';
+import skillData from '@/public/demo-skills.json';
 
 import { Header } from '@/source/widgets/header';
 import { Notification } from '@/source/widgets/notification';
@@ -17,6 +18,9 @@ import { Activities } from '@/source/widgets/activities';
 import { KeyIndicators } from '@/source/widgets/key-indicators';
 
 export const HomePage: React.FC = () => {
+  const teamLimit = 7;
+  const skillLimit = 7;
+
   const [links, setLinks] = React.useState([
     { title: 'Организация', link: '/404' },
     {
@@ -41,7 +45,7 @@ export const HomePage: React.FC = () => {
 
   const [isCloseNotice, setCloseNotice] = React.useState(false);
 
-  // Действия для кнопок в блоке уведомлений
+  // Actions for buttons in the notification block
   const handleNoticeClose = () => {
     setCloseNotice(true);
   };
@@ -56,7 +60,7 @@ export const HomePage: React.FC = () => {
     console.log('Редактировать профиль команды');
   };
 
-  // Переход к разделам страницы
+  // Jump to page sections
   const handleGoToTeam = () => {
     console.log('О команде');
   };
@@ -64,7 +68,7 @@ export const HomePage: React.FC = () => {
     console.log('О навыках');
   };
 
-  // Карточки активности
+  // Activity cards
   function handleAddToPlan(data: any) {
     console.log('запрос для редактирования плана развития сотрудников', data);
   }
@@ -98,7 +102,10 @@ export const HomePage: React.FC = () => {
 
         <KeyIndicators
           teamData={teamData}
+          skillData={skillData}
           className={cn(classes.keyIndicators)}
+          teamLimit={teamLimit}
+          skillLimit={skillLimit}
         />
 
         <Activities taskList={taskData} handleAddToPlan={handleAddToPlan} />

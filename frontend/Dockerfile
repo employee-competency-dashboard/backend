@@ -1,73 +1,120 @@
-# # build env
-# FROM node:21.6.2-alpine
+# FROM node:21-alpine AS base
+
+# # Install dependencies only when needed
+# FROM base AS deps
+# # Check https://github.com/nodejs/docker-node/tree/b4117f9333da4138b03a546ec926ef50a31506c3#nodealpine to understand why libc6-compat might be needed.
+# RUN apk add --no-cache libc6-compat
 # WORKDIR /app
 
-# COPY package*.json ./
+# # Install dependencies based on the preferred package manager
+# COPY package.json yarn.lock* package-lock.json* pnpm-lock.yaml* ./
+# RUN \
+#   if [ -f yarn.lock ]; then yarn --frozen-lockfile; \
+#   elif [ -f package-lock.json ]; then npm ci; \
+#   elif [ -f pnpm-lock.yaml ]; then corepack enable pnpm && pnpm i --frozen-lockfile; \
+#   else echo "Lockfile not found." && exit 1; \
+#   fi
 
-# RUN npm install
 
-# COPY . ./
-# RUN npm run build
-
-# FROM node:21.6.2
+# # Rebuild the source code only when needed
+# FROM base AS builder
 # WORKDIR /app
-
-# # Копируем package.json и package-lock.json для установки зависимостей
-# COPY package.json package.json
-# COPY package-lock.json package-lock.json
-
-# # Устанавливаем зависимости
-# RUN npm ci
-
-# # Копируем все файлы проекта
+# COPY --from=deps /app/node_modules ./node_modules
 # COPY . .
 
-# # Собираем проект
-# RUN npm run build
-# # Устанавливаем глобально http-server для раздачи статических файлов
-# RUN npm install --global http-server
+# # Next.js collects completely anonymous telemetry data about general usage.
+# # Learn more here: https://nextjs.org/telemetry
+# # Uncomment the following line in case you want to disable telemetry during the build.
+# # ENV NEXT_TELEMETRY_DISABLED=1
 
-# # Команда для запуска http-server, раздающего статические файлы из /app/.next/static
-# CMD ["npx", "-y", "http-server", "-p", "8000", "/app/.next/static"]
-
-# FROM node:21.6.2
+# # Production image, copy all the files and run next
+# FROM base AS runner
 # WORKDIR /app
 
-# # Копируем package.json и package-lock.json для установки зависимостей
-# COPY package*.json ./
+# ENV NODE_ENV=production
+# # Uncomment the following line in case you want to disable telemetry during runtime.
+# # ENV NEXT_TELEMETRY_DISABLED=1
 
-# # Устанавливаем зависимости
-# RUN npm ci
+# RUN addgroup --system --gid 1001 nodejs
+# RUN adduser --system --uid 1001 nextjs
 
-# # Копируем все файлы проекта
-# COPY . .
+# COPY --from=builder /app/public ./public
 
-# # Собираем проект
-# RUN npm run build
+# # Set the correct permission for prerender cache
+# RUN mkdir .next
+# RUN chown nextjs:nodejs .next
 
-# # Устанавливаем глобально http-server для раздачи статических файлов (если необходимо)
-# RUN npm install --global http-server
+# # Automatically leverage output traces to reduce image size
+# # https://nextjs.org/docs/advanced-features/output-file-tracing
+# COPY --from=builder --chown=nextjs:nodejs /app/.next/static ./.next/static
 
-# # Команда для запуска http-server, раздающего статические файлы из /app/.next/static
-# # CMD ["npx", "-y", "http-server", "-p", "8000", "/app/.next/static"]
+# USER nextjs
 
-# # Если вы хотите использовать Next.js сервер, раскомментируйте следующую строку:
-# CMD ["npm", "start"]
+# EXPOSE 3000
 
-# FROM node:21.6.2
+# ENV PORT=3000
+
+# # server.js is created by next build from the standalone output
+# # https://nextjs.org/docs/pages/api-reference/next-config-js/output
+# ENV HOSTNAME="0.0.0.0"
+# CMD ["node", "server.js"]
+
+# # Устанавливаем базовый образ
+# FROM node:21-alpine AS base
+
+# FROM base AS builder
+
+# # Устанавливаем рабочую директорию
 # WORKDIR /app
 
-# # Копируем package.json и package-lock.json для установки зависимостей
-# COPY package*.json ./
-
-# # Устанавливаем зависимости
+# # Устанавливаем зависимости только при необходимости
+# COPY package.json package-lock.json ./
 # RUN npm ci
 
-# # Копируем все файлы проекта
+# # Копируем исходный код и выполняем команды
 # COPY . .
 
-# # Собираем проект
+# # Отключаем телеметрию Next.js
+# ENV NEXT_TELEMETRY_DISABLED=1
+# ENV NODE_ENV=production
+
+# # Сборка приложения
 # RUN npm run build
+
+# # Производственный этап
+# FROM base AS runner
+
+# # Устанавливаем рабочую директорию
+# WORKDIR /app
+
+# # Отключаем телеметрию Next.js
+# ENV NEXT_TELEMETRY_DISABLED=1
+
+# ENV HOST=http://127.0.0.1
+# ENV NEXT_PUBLIC_API_HOST=http://127.0.0.1
+# ENV PORT=3000
+# ENV HOSTNAME="0.0.0.0"
+
+# RUN addgroup --system --gid 1001 nodejs
+# RUN adduser --system --uid 1001 nextjs
+
+
+# RUN mkdir .next
+# RUN chown nextjs:nodejs .next
+
+# # Копируем необходимые файлы из предыдущего шага
+# COPY --from=builder --chown=nextjs:nodejs /app/.next/static ./.next/static
+# COPY --from=builder --chown=nextjs:nodejs /app/public ./public
+
+# USER nextjs
+
+# # Открываем порт
+# EXPOSE 3000
+
+# ENV PORT=3000
+
+# # Запускаем приложение
+# # CMD ["node", "server.js"]
 
 # # Устанавливаем pm2 глобально
 # RUN npm install -g pm2
@@ -75,62 +122,23 @@
 # # Команда для запуска приложения с помощью pm2
 # CMD ["pm2-runtime", "start", "npm", "--name", "frontend", "--", "start"]
 
-# Устанавливаем базовый образ
-FROM node:21-alpine AS base
-
-FROM base AS builder
-
-# Устанавливаем рабочую директорию
+FROM node:21.6.2
 WORKDIR /app
 
-# Устанавливаем зависимости только при необходимости
-COPY package.json package-lock.json ./
+# Копируем package.json и package-lock.json для установки зависимостей
+COPY package*.json ./
+
+# Устанавливаем зависимости
 RUN npm ci
 
-# Копируем исходный код и выполняем команды
+# Копируем все файлы проекта
 COPY . .
 
-# Отключаем телеметрию Next.js
-ENV NEXT_TELEMETRY_DISABLED=1
-ENV NODE_ENV=production
-
-# Сборка приложения
+# Собираем проект
 RUN npm run build
 
-# Производственный этап
-FROM base AS runner
+# Устанавливаем pm2 глобально
+RUN npm install -g pm2
 
-# Устанавливаем рабочую директорию
-WORKDIR /app
-
-# Отключаем телеметрию Next.js
-ENV NEXT_TELEMETRY_DISABLED=1
-
-ENV NODE_ENV=production
-ENV AUTH_SECRET="NfYkdDFYYreY="
-ENV HOST=http://127.0.0.1
-ENV NEXT_PUBLIC_API_HOST=http://127.0.0.1
-ENV PORT=3000
-ENV HOSTNAME="0.0.0.0"
-
-RUN addgroup --system --gid 1001 nodejs
-RUN adduser --system --uid 1001 nextjs
-
-
-RUN mkdir .next
-RUN chown nextjs:nodejs .next
-
-# Копируем необходимые файлы из предыдущего шага
-COPY --from=builder --chown=nextjs:nodejs /app/.next/static ./.next/static
-COPY --from=builder --chown=nextjs:nodejs /app/public ./public
-
-USER nextjs
-
-# Открываем порт
-EXPOSE 3000
-
-ENV PORT=3000
-
-# Запускаем приложение
-CMD node server.js
-
+# Команда для запуска приложения с помощью pm2
+CMD ["pm2-runtime", "start", "npm", "--name", "frontend", "--", "start"]

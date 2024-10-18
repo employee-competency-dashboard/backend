@@ -1,38 +1,89 @@
-# rosbank_hackaton_frontend
+# Frontend для ХАКАТОН+ Росбанк
 
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+Дашборд аналитики по навыкам в команде, который позволит руководителю увидеть состояние навыков в команде и поможет в ее развитии.
 
-## Как запустить проект:
+Даты проведения: 4 сентября - 16 октября 2024 года.
 
-Вначале запустить сервер разработки:
+Организатор: АНО ДПО «Образовательные технологии Яндекса»
+
+Соорганизатор: ПАО РОСБАНК
+
+[Подробная информация о хакатоне](https://norikov.notion.site/ec7ad9d3121d49d19354777c02454541)
+
+### Опубликованное приложение
+
+[Ссылка на сайт](https://maxrmnk.ru/)
+
+<!-- [<Бэкенд приложения](https://maxrmnk.ru/) -->
+<!-- [Макет в Figma]() -->
+
+## Команда #6. Состав
+
+- [Никита](https://t.me/nikfromrus) - Product-менеджер
+- [Анна](https://t.me/yudina_a) - Дизайнер
+- [Мария](https://t.me/madam_entu) - Дизайнер
+- [Борис](https://t.me/barudenko) - DA (аналитик данных)
+- [Макс](https://t.me/MaxRMNK) - Frontend-разработчик
+- [Адель](https://t.me/AIG3c) - Backend-разработчик
+- [Сергей](https://t.me/serhiihabl) - Backend-разработчик
+- [Дмитрий](https://t.me/d_strelen) - SA (системный аналитик)
+- [Басанг](https://t.me/basang13) - BA (бизнес-аналитик)
+
+## Инструкция по сборке и запуску
+
+### Установка
+
+Клонировать проект и перейти в каталог `/rosbank_hackaton_frontend`
+
+```bash
+git clone git@github.com:MaxRMNK/rosbank_hackaton_frontend.git
+cd rosbank_hackaton_frontend
+```
+
+Установить проект и его зависимости
+
+```bash
+npm install
+```
+
+### Запуск
+
+**Режим разработки**
 
 ```bash
 npm run dev
-# или
-yarn dev
-# или
-pnpm dev
-# или
-bun dev
 ```
 
-Открыть в вашем браузере адрес [http://localhost:3000](http://localhost:3000) и посмотреть результат.
+**Сборка проекта**
 
-Вы можете начать редактировать страницу, модифицируя файл `app/page.tsx`. Страница автоматически обновляется во время редактирвоания.
+```bash
+npm run build
+```
 
-Этот проект использует [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) для автоматической оптимизации и загрузки [Geist](https://vercel.com/font) новое семество шрифтов для Vercel.
+**Запуск проекта**
 
-## Дополнительная информация:
+```bash
+npm run start
+# or
+npm start
+```
 
-Для получения большей информации по Next.js смотрите следующие ресурсы:
+Открыть [http://localhost:3000](http://localhost:3000) в браузере, чтобы увидеть результат.
 
-- [Next.js Documentation](https://nextjs.org/docs) - особенности Next.js и API.
-- [Learn Next.js](https://nextjs.org/learn) - интерактивный тьюториал Next.js.
+## Стэк технологий
 
-Вы можете проверить [the Next.js GitHub repository](https://github.com/vercel/next.js) - ваша обратная связь приветствуется!
+- HTML5
+- Sass / SCSS
+- TypeScript v.5
+- React v.18
+- Next.js v.14
 
-## Деплой на Vercel
+Структура веб-приложения основана на архитектурном подходе **Feature-Sliced Design (FSD)**, который направлен на облегчение сопровождения приложения, его тестирования и масштабирования.
 
-Простым путем для деплоя приложения Next.js является [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme), от создателей Next.js.
+### Ссылки на фреймворки, библиотеки, иконки и шрифты
 
-Проверьте этот ресурс [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) для получения большей информации.
+- [class.js](https://www.npmjs.com/package/classes) - наследование классов
+- [Classnames](https://www.npmjs.com/package/classnames) - динамическое управление классами
+- [ESLint](https://www.npmjs.com/package/eslint) — линтер, поиск проблемных паттернов проектирования и кода
+- [Prettier](https://www.npmjs.com/package/prettier) — форматирование кода
+- [Husky](https://www.npmjs.com/package/husky) - проверка кода и исправление ошибок
