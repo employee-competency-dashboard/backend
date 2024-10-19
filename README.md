@@ -100,7 +100,7 @@ sudo docker ps
     ```
     location / {
         proxy_set_header Host $http_host;
-        proxy_pass http://127.0.0.1:7000;
+        proxy_pass http://127.0.0.1:8000;
     }
     ```
     Сделать проверку и перезагрузку файла конфигурации:
@@ -127,7 +127,7 @@ sudo docker ps
 
 8. Для работы с проектом создать .env-файл по следующему образцу:
     ```
-    ALLOWED_HOSTS = * xxx.xxx.xxx.xxx 127.0.0.1 localhost
+    ALLOWED_HOSTS = *,xxx.xxx.xxx.xxx,127.0.0.1,localhost
     DB_HOST = db
     DB_PORT = 5432
     DEBUG = False
