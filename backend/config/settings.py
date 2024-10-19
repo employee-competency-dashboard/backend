@@ -103,9 +103,9 @@ REST_FRAMEWORK = {
 }
 
 SPECTACULAR_SETTINGS = {
-    'TITLE': 'HRspace Documentation API',
+    'TITLE': 'Rosbank dashboard Documentation API',
     'DESCRIPTION': ('В этом описании API представлен обзор доступных конечных точек,'
-                    'форматов запросов и ответов, а также примеры эффективного использования API HRspace.'),
+                    'форматов запросов и ответов, а также примеры эффективного использования API Rosbank dashboard.'),
     'VERSION': '0.0.1',
     'SERVE_INCLUDE_SCHEMA': False,
     'SWAGGER_UI_SETTINGS': {
