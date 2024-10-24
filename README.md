@@ -15,7 +15,7 @@
 - [Дмитрий Стреленко](https://t.me/d_strelen), системный аналитик,
 - [Басанг Амулаков](https://t.me/basang13), бизнес-аналитик,
 - [Анна Юдина](https://t.me/yudina_a), дизайнер,
-- [Мария](https://t.me/madam_entu), дизайнер,
+- [Мария Кузьмина](https://t.me/madam_entu), дизайнер,
 - [Максим Романенко](https://t.me/MaxRMNK), frontend-разработчик,
 - [Адель Гарифуллин](https://github.com/AIGarifullin), python-разработчик,
 - [Сергей Виноградов](https://github.com/yan-gabala), python-разработчик.
